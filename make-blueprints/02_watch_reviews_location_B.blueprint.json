@@ -1,0 +1,1244 @@
+{
+  "name": "Get Reviews — Location 2",
+  "flow": [
+    {
+      "id": 1,
+      "module": "google-my-business:watchReviews",
+      "version": 1,
+      "parameters": {
+        "limit": 20,
+        "select": "create",
+        "account": "accounts/PASTE_ACCOUNT_ID",
+        "location": "accounts/PASTE_ACCOUNT_ID/locations/PASTE_LOCATION_ID",
+        "__IMTCONN__": "__SET_YOUR_CONNECTION__"
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": -223,
+          "y": -252
+        },
+        "restore": {
+          "parameters": {
+            "select": {
+              "label": "By creation time"
+            },
+            "account": {
+              "label": "Your Google Account"
+            },
+            "location": {
+              "label": "Your Shop — Location 2 (Google Business listing)"
+            },
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "google-my-business2"
+              },
+              "label": "My Google Business Profile connection (your-email@example.com)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google-custom,google-my-business2",
+            "label": "Connection",
+            "required": true
+          },
+          {
+            "name": "select",
+            "type": "select",
+            "label": "Watch reviews",
+            "required": true,
+            "validate": {
+              "enum": [
+                "create",
+                "update"
+              ]
+            }
+          },
+          {
+            "name": "account",
+            "type": "select",
+            "label": "Account name",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "uinteger",
+            "label": "Limit",
+            "required": true
+          },
+          {
+            "name": "location",
+            "type": "select",
+            "label": "Location name",
+            "required": true
+          }
+        ]
+      },
+      "onerror": [
+        {
+          "id": 10,
+          "module": "http:MakeRequest",
+          "version": 4,
+          "parameters": {
+            "tlsType": "",
+            "authenticationType": "noAuth"
+          },
+          "mapper": {
+            "url": "https://api.telegram.org/botPASTE_YOUR_TELEGRAM_BOT_TOKEN/sendMessage",
+            "method": "post",
+            "contentType": "urlEncoded",
+            "shareCookies": false,
+            "parseResponse": true,
+            "allowRedirects": true,
+            "stopOnHttpError": true,
+            "urlEncodedBodyContent": [
+              {
+                "name": "chat_id",
+                "value": "PASTE_YOUR_IT_LOG_CHAT_ID"
+              },
+              {
+                "name": "parse_mode",
+                "value": "HTML"
+              },
+              {
+                "name": "Text",
+                "value": "❌ <b>[MAKE.COM CRASH]</b>
+
+<b>Scenario:</b> Get New Reviews (Location 2)
+<b>Failed module:</b> Google Business Profile (Watch Reviews)
+<b>Problem:</b> Could not connect to Google to fetch new reviews — the system is blind right now.
+<b>Action:</b> Open Make.com and re-check the Google Business Profile connection immediately.
+
+<b>Error detail:</b>
+- Type: {{1.error.type}}
+- Message: {{1.error.message}}- {{1.error.detail}}"
+              }
+            ],
+            "requestCompressedContent": true
+          },
+          "metadata": {
+            "designer": {
+              "x": 77,
+              "y": -102
+            },
+            "restore": {
+              "expect": {
+                "method": {
+                  "mode": "chose",
+                  "label": "POST"
+                },
+                "headers": {
+                  "mode": "chose"
+                },
+                "contentType": {
+                  "label": "application/x-www-form-urlencodedEnter form data as key-value pairs encoded in the URL style."
+                },
+                "shareCookies": {
+                  "mode": "chose"
+                },
+                "parseResponse": {
+                  "mode": "chose"
+                },
+                "allowRedirects": {
+                  "mode": "chose"
+                },
+                "paginationType": {
+                  "label": "Empty"
+                },
+                "queryParameters": {
+                  "mode": "chose"
+                },
+                "stopOnHttpError": {
+                  "mode": "chose"
+                },
+                "urlEncodedBodyContent": {
+                  "mode": "chose",
+                  "items": [
+                    null,
+                    null,
+                    null
+                  ]
+                },
+                "requestCompressedContent": {
+                  "mode": "chose"
+                }
+              },
+              "parameters": {
+                "tlsType": {
+                  "label": "Empty"
+                },
+                "authenticationType": {
+                  "label": "No authenticationUse when no credentials are required for the request."
+                }
+              }
+            },
+            "parameters": [
+              {
+                "name": "authenticationType",
+                "type": "select",
+                "label": "Authentication type",
+                "required": true,
+                "validate": {
+                  "enum": [
+                    "noAuth",
+                    "apiKey",
+                    "basicAuth",
+                    "oAuth"
+                  ]
+                }
+              },
+              {
+                "name": "tlsType",
+                "type": "select",
+                "label": "Transport layer security (TLS)",
+                "validate": {
+                  "enum": [
+                    "mTls",
+                    "tls"
+                  ]
+                }
+              },
+              {
+                "name": "proxyKeychain",
+                "type": "keychain:proxy",
+                "label": "Proxy"
+              }
+            ],
+            "expect": [
+              {
+                "name": "url",
+                "type": "url",
+                "label": "URL",
+                "required": true
+              },
+              {
+                "name": "method",
+                "type": "select",
+                "label": "Method",
+                "required": true,
+                "validate": {
+                  "enum": [
+                    "get",
+                    "head",
+                    "post",
+                    "put",
+                    "patch",
+                    "delete",
+                    "options"
+                  ]
+                }
+              },
+              {
+                "name": "headers",
+                "spec": {
+                  "name": "value",
+                  "spec": [
+                    {
+                      "name": "name",
+                      "type": "text",
+                      "label": "Name",
+                      "required": true,
+                      "validate": {
+                        "pattern": "^[-!#$%&'*+.^_`|~0-9A-Za-z]+$"
+                      }
+                    },
+                    {
+                      "name": "value",
+                      "type": "text",
+                      "label": "Value"
+                    }
+                  ],
+                  "type": "collection",
+                  "label": "Header"
+                },
+                "type": "array",
+                "label": "Headers"
+              },
+              {
+                "name": "queryParameters",
+                "spec": {
+                  "name": "value",
+                  "spec": [
+                    {
+                      "name": "name",
+                      "type": "text",
+                      "label": "Name",
+                      "required": true
+                    },
+                    {
+                      "name": "value",
+                      "type": "text",
+                      "label": "Value"
+                    }
+                  ],
+                  "type": "collection",
+                  "label": "Parameter"
+                },
+                "type": "array",
+                "label": "Query parameters"
+              },
+              {
+                "name": "contentType",
+                "type": "select",
+                "label": "Body content type",
+                "validate": {
+                  "enum": [
+                    "json",
+                    "multipart",
+                    "urlEncoded",
+                    "custom"
+                  ]
+                }
+              },
+              {
+                "name": "parseResponse",
+                "type": "boolean",
+                "label": "Parse response",
+                "required": true
+              },
+              {
+                "name": "stopOnHttpError",
+                "type": "boolean",
+                "label": "Return error if HTTP request fails",
+                "required": true
+              },
+              {
+                "name": "timeout",
+                "type": "uinteger",
+                "label": "Timeout",
+                "validate": {
+                  "max": 300,
+                  "min": 1
+                }
+              },
+              {
+                "name": "allowRedirects",
+                "type": "boolean",
+                "label": "Allow redirects",
+                "required": true
+              },
+              {
+                "name": "shareCookies",
+                "type": "boolean",
+                "label": "Share cookies with other HTTP modules",
+                "required": true
+              },
+              {
+                "name": "requestCompressedContent",
+                "type": "boolean",
+                "label": "Request compressed content",
+                "required": true
+              },
+              {
+                "name": "urlEncodedBodyContent",
+                "spec": {
+                  "name": "value",
+                  "spec": [
+                    {
+                      "name": "name",
+                      "type": "text",
+                      "label": "Name",
+                      "required": true
+                    },
+                    {
+                      "name": "value",
+                      "type": "text",
+                      "label": "Value"
+                    }
+                  ],
+                  "type": "collection",
+                  "label": "Field"
+                },
+                "type": "array",
+                "label": "Body content",
+                "required": true
+              },
+              {
+                "name": "paginationType",
+                "type": "select",
+                "label": "Pagination type",
+                "validate": {
+                  "enum": [
+                    "offsetBased",
+                    "pageBased",
+                    "urlBased",
+                    "tokenBased"
+                  ]
+                }
+              }
+            ],
+            "interface": [
+              {
+                "name": "data",
+                "type": "any",
+                "label": "Data"
+              },
+              {
+                "name": "statusCode",
+                "type": "number",
+                "label": "Status Code"
+              },
+              {
+                "name": "headers",
+                "spec": [
+                  {
+                    "name": "content-length",
+                    "type": "text",
+                    "label": "Content-Length"
+                  },
+                  {
+                    "name": "content-encoding",
+                    "type": "text",
+                    "label": "Content-Encoding"
+                  },
+                  {
+                    "name": "content-type",
+                    "type": "text",
+                    "label": "Content-Type"
+                  },
+                  {
+                    "name": "server",
+                    "type": "text",
+                    "label": "Server"
+                  },
+                  {
+                    "name": "cache-control",
+                    "type": "text",
+                    "label": "Cache-Control"
+                  },
+                  {
+                    "name": "set-cookie",
+                    "spec": {
+                      "type": "text"
+                    },
+                    "type": "array",
+                    "label": "Set-Cookie"
+                  }
+                ],
+                "type": "collection",
+                "label": "Headers"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "module": "google-sheets:addRow",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": "__SET_YOUR_CONNECTION__"
+      },
+      "filter": {
+        "name": "No reply yet",
+        "conditions": [
+          [
+            {
+              "a": "{{1.reviewReply.comment}}",
+              "o": "notexist"
+            }
+          ]
+        ]
+      },
+      "mapper": {
+        "mode": "map",
+        "values": {
+          "0": "{{1.name}}",
+          "1": "{{1.reviewer.displayName}}",
+          "2": "{{1.starRating}}",
+          "3": "{{1.comment}}",
+          "4": "{{1.createTime}}",
+          "5": "waiting_ai",
+          "6": "La Lapine TBH",
+          "18": "join( map( {{1.reviewMediaItems}} ; thumbnailUrl ) ; \",\" )",
+          "19": "{{1.reviewMediaItems}}"
+        },
+        "sheetId": "Reviews",
+        "spreadsheetId": "PASTE_YOUR_SPREADSHEET_ID",
+        "tableFirstRow": "A1:Z1",
+        "insertDataOption": "INSERT_ROWS",
+        "valueInputOption": "USER_ENTERED",
+        "insertUnformatted": false
+      },
+      "metadata": {
+        "designer": {
+          "x": 77,
+          "y": -402
+        },
+        "restore": {
+          "expect": {
+            "mode": {
+              "label": "Enter manually"
+            },
+            "tableFirstRow": {
+              "label": "A-Z",
+              "nested": [
+                {
+                  "name": "values",
+                  "spec": [
+                    {
+                      "name": "0",
+                      "type": "text",
+                      "label": "A"
+                    },
+                    {
+                      "name": "1",
+                      "type": "text",
+                      "label": "B"
+                    },
+                    {
+                      "name": "2",
+                      "type": "text",
+                      "label": "C"
+                    },
+                    {
+                      "name": "3",
+                      "type": "text",
+                      "label": "D"
+                    },
+                    {
+                      "name": "4",
+                      "type": "text",
+                      "label": "E"
+                    },
+                    {
+                      "name": "5",
+                      "type": "text",
+                      "label": "F"
+                    },
+                    {
+                      "name": "6",
+                      "type": "text",
+                      "label": "G"
+                    },
+                    {
+                      "name": "7",
+                      "type": "text",
+                      "label": "H"
+                    },
+                    {
+                      "name": "8",
+                      "type": "text",
+                      "label": "I"
+                    },
+                    {
+                      "name": "9",
+                      "type": "text",
+                      "label": "J"
+                    },
+                    {
+                      "name": "10",
+                      "type": "text",
+                      "label": "K"
+                    },
+                    {
+                      "name": "11",
+                      "type": "text",
+                      "label": "L"
+                    },
+                    {
+                      "name": "12",
+                      "type": "text",
+                      "label": "M"
+                    },
+                    {
+                      "name": "13",
+                      "type": "text",
+                      "label": "N"
+                    },
+                    {
+                      "name": "14",
+                      "type": "text",
+                      "label": "O"
+                    },
+                    {
+                      "name": "15",
+                      "type": "text",
+                      "label": "P"
+                    },
+                    {
+                      "name": "16",
+                      "type": "text",
+                      "label": "Q"
+                    },
+                    {
+                      "name": "17",
+                      "type": "text",
+                      "label": "R"
+                    },
+                    {
+                      "name": "18",
+                      "type": "text",
+                      "label": "S"
+                    },
+                    {
+                      "name": "19",
+                      "type": "text",
+                      "label": "T"
+                    },
+                    {
+                      "name": "20",
+                      "type": "text",
+                      "label": "U"
+                    },
+                    {
+                      "name": "21",
+                      "type": "text",
+                      "label": "V"
+                    },
+                    {
+                      "name": "22",
+                      "type": "text",
+                      "label": "W"
+                    },
+                    {
+                      "name": "23",
+                      "type": "text",
+                      "label": "X"
+                    },
+                    {
+                      "name": "24",
+                      "type": "text",
+                      "label": "Y"
+                    },
+                    {
+                      "name": "25",
+                      "type": "text",
+                      "label": "Z"
+                    }
+                  ],
+                  "type": "collection",
+                  "label": "Values in columns"
+                }
+              ]
+            },
+            "insertDataOption": {
+              "mode": "chose",
+              "label": "Insert rows"
+            },
+            "valueInputOption": {
+              "mode": "chose",
+              "label": "User entered"
+            },
+            "insertUnformatted": {
+              "mode": "chose"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "google"
+              },
+              "label": "My Google connection (your-email@example.com)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "mode",
+            "type": "select",
+            "label": "Search Method",
+            "required": true,
+            "validate": {
+              "enum": [
+                "select",
+                "fromAll",
+                "map"
+              ]
+            }
+          },
+          {
+            "name": "insertUnformatted",
+            "type": "boolean",
+            "label": "Unformatted",
+            "required": true
+          },
+          {
+            "name": "valueInputOption",
+            "type": "select",
+            "label": "Value input option",
+            "required": true,
+            "validate": {
+              "enum": [
+                "USER_ENTERED",
+                "RAW"
+              ]
+            }
+          },
+          {
+            "name": "insertDataOption",
+            "type": "select",
+            "label": "Insert data option",
+            "validate": {
+              "enum": [
+                "INSERT_ROWS",
+                "OVERWRITE"
+              ]
+            }
+          },
+          {
+            "name": "spreadsheetId",
+            "type": "text",
+            "label": "Spreadsheet ID",
+            "required": true
+          },
+          {
+            "name": "sheetId",
+            "type": "text",
+            "label": "Sheet Name",
+            "required": true
+          },
+          {
+            "name": "tableFirstRow",
+            "type": "select",
+            "label": "Column range",
+            "required": true,
+            "validate": {
+              "enum": [
+                "A1:Z1",
+                "A1:BZ1",
+                "A1:CZ1",
+                "A1:DZ1",
+                "A1:MZ1",
+                "A1:ZZ1"
+              ]
+            }
+          },
+          {
+            "name": "values",
+            "spec": [
+              {
+                "name": "0",
+                "type": "text",
+                "label": "A"
+              },
+              {
+                "name": "1",
+                "type": "text",
+                "label": "B"
+              },
+              {
+                "name": "2",
+                "type": "text",
+                "label": "C"
+              },
+              {
+                "name": "3",
+                "type": "text",
+                "label": "D"
+              },
+              {
+                "name": "4",
+                "type": "text",
+                "label": "E"
+              },
+              {
+                "name": "5",
+                "type": "text",
+                "label": "F"
+              },
+              {
+                "name": "6",
+                "type": "text",
+                "label": "G"
+              },
+              {
+                "name": "7",
+                "type": "text",
+                "label": "H"
+              },
+              {
+                "name": "8",
+                "type": "text",
+                "label": "I"
+              },
+              {
+                "name": "9",
+                "type": "text",
+                "label": "J"
+              },
+              {
+                "name": "10",
+                "type": "text",
+                "label": "K"
+              },
+              {
+                "name": "11",
+                "type": "text",
+                "label": "L"
+              },
+              {
+                "name": "12",
+                "type": "text",
+                "label": "M"
+              },
+              {
+                "name": "13",
+                "type": "text",
+                "label": "N"
+              },
+              {
+                "name": "14",
+                "type": "text",
+                "label": "O"
+              },
+              {
+                "name": "15",
+                "type": "text",
+                "label": "P"
+              },
+              {
+                "name": "16",
+                "type": "text",
+                "label": "Q"
+              },
+              {
+                "name": "17",
+                "type": "text",
+                "label": "R"
+              },
+              {
+                "name": "18",
+                "type": "text",
+                "label": "S"
+              },
+              {
+                "name": "19",
+                "type": "text",
+                "label": "T"
+              },
+              {
+                "name": "20",
+                "type": "text",
+                "label": "U"
+              },
+              {
+                "name": "21",
+                "type": "text",
+                "label": "V"
+              },
+              {
+                "name": "22",
+                "type": "text",
+                "label": "W"
+              },
+              {
+                "name": "23",
+                "type": "text",
+                "label": "X"
+              },
+              {
+                "name": "24",
+                "type": "text",
+                "label": "Y"
+              },
+              {
+                "name": "25",
+                "type": "text",
+                "label": "Z"
+              }
+            ],
+            "type": "collection",
+            "label": "Values in columns"
+          }
+        ]
+      },
+      "onerror": [
+        {
+          "id": 12,
+          "module": "http:MakeRequest",
+          "version": 4,
+          "parameters": {
+            "tlsType": "",
+            "authenticationType": "noAuth"
+          },
+          "mapper": {
+            "url": "https://api.telegram.org/botPASTE_YOUR_TELEGRAM_BOT_TOKEN/sendMessage",
+            "method": "post",
+            "contentType": "urlEncoded",
+            "shareCookies": false,
+            "parseResponse": true,
+            "allowRedirects": true,
+            "stopOnHttpError": true,
+            "urlEncodedBodyContent": [
+              {
+                "name": "chat_id",
+                "value": "PASTE_YOUR_IT_LOG_CHAT_ID"
+              },
+              {
+                "name": "parse_mode",
+                "value": "HTML"
+              },
+              {
+                "name": "Text",
+                "value": "❌ <b>[MAKE.COM CRASH]</b>
+
+<b>Scenario:</b> Get New Reviews (Location 2)
+<b>Failed module:</b> Google Business Profile (Watch Reviews)
+<b>Problem:</b> Could not connect to Google to fetch new reviews — the system is blind right now.
+<b>Action:</b> Open Make.com and re-check the Google Business Profile connection immediately.
+
+<b>Error detail:</b>
+- Type: {{1.error.type}}
+- Message: {{1.error.message}}- {{1.error.detail}}"
+              }
+            ],
+            "requestCompressedContent": true
+          },
+          "metadata": {
+            "designer": {
+              "x": 377,
+              "y": -402
+            },
+            "restore": {
+              "expect": {
+                "method": {
+                  "mode": "chose",
+                  "label": "POST"
+                },
+                "headers": {
+                  "mode": "chose"
+                },
+                "contentType": {
+                  "label": "application/x-www-form-urlencodedEnter form data as key-value pairs encoded in the URL style."
+                },
+                "shareCookies": {
+                  "mode": "chose"
+                },
+                "parseResponse": {
+                  "mode": "chose"
+                },
+                "allowRedirects": {
+                  "mode": "chose"
+                },
+                "paginationType": {
+                  "label": "Empty"
+                },
+                "queryParameters": {
+                  "mode": "chose"
+                },
+                "stopOnHttpError": {
+                  "mode": "chose"
+                },
+                "urlEncodedBodyContent": {
+                  "mode": "chose",
+                  "items": [
+                    null,
+                    null,
+                    null
+                  ]
+                },
+                "requestCompressedContent": {
+                  "mode": "chose"
+                }
+              },
+              "parameters": {
+                "tlsType": {
+                  "label": "Empty"
+                },
+                "authenticationType": {
+                  "label": "No authenticationUse when no credentials are required for the request."
+                }
+              }
+            },
+            "parameters": [
+              {
+                "name": "authenticationType",
+                "type": "select",
+                "label": "Authentication type",
+                "required": true,
+                "validate": {
+                  "enum": [
+                    "noAuth",
+                    "apiKey",
+                    "basicAuth",
+                    "oAuth"
+                  ]
+                }
+              },
+              {
+                "name": "tlsType",
+                "type": "select",
+                "label": "Transport layer security (TLS)",
+                "validate": {
+                  "enum": [
+                    "mTls",
+                    "tls"
+                  ]
+                }
+              },
+              {
+                "name": "proxyKeychain",
+                "type": "keychain:proxy",
+                "label": "Proxy"
+              }
+            ],
+            "expect": [
+              {
+                "name": "url",
+                "type": "url",
+                "label": "URL",
+                "required": true
+              },
+              {
+                "name": "method",
+                "type": "select",
+                "label": "Method",
+                "required": true,
+                "validate": {
+                  "enum": [
+                    "get",
+                    "head",
+                    "post",
+                    "put",
+                    "patch",
+                    "delete",
+                    "options"
+                  ]
+                }
+              },
+              {
+                "name": "headers",
+                "spec": {
+                  "name": "value",
+                  "spec": [
+                    {
+                      "name": "name",
+                      "type": "text",
+                      "label": "Name",
+                      "required": true,
+                      "validate": {
+                        "pattern": "^[-!#$%&'*+.^_`|~0-9A-Za-z]+$"
+                      }
+                    },
+                    {
+                      "name": "value",
+                      "type": "text",
+                      "label": "Value"
+                    }
+                  ],
+                  "type": "collection",
+                  "label": "Header"
+                },
+                "type": "array",
+                "label": "Headers"
+              },
+              {
+                "name": "queryParameters",
+                "spec": {
+                  "name": "value",
+                  "spec": [
+                    {
+                      "name": "name",
+                      "type": "text",
+                      "label": "Name",
+                      "required": true
+                    },
+                    {
+                      "name": "value",
+                      "type": "text",
+                      "label": "Value"
+                    }
+                  ],
+                  "type": "collection",
+                  "label": "Parameter"
+                },
+                "type": "array",
+                "label": "Query parameters"
+              },
+              {
+                "name": "contentType",
+                "type": "select",
+                "label": "Body content type",
+                "validate": {
+                  "enum": [
+                    "json",
+                    "multipart",
+                    "urlEncoded",
+                    "custom"
+                  ]
+                }
+              },
+              {
+                "name": "parseResponse",
+                "type": "boolean",
+                "label": "Parse response",
+                "required": true
+              },
+              {
+                "name": "stopOnHttpError",
+                "type": "boolean",
+                "label": "Return error if HTTP request fails",
+                "required": true
+              },
+              {
+                "name": "timeout",
+                "type": "uinteger",
+                "label": "Timeout",
+                "validate": {
+                  "max": 300,
+                  "min": 1
+                }
+              },
+              {
+                "name": "allowRedirects",
+                "type": "boolean",
+                "label": "Allow redirects",
+                "required": true
+              },
+              {
+                "name": "shareCookies",
+                "type": "boolean",
+                "label": "Share cookies with other HTTP modules",
+                "required": true
+              },
+              {
+                "name": "requestCompressedContent",
+                "type": "boolean",
+                "label": "Request compressed content",
+                "required": true
+              },
+              {
+                "name": "urlEncodedBodyContent",
+                "spec": {
+                  "name": "value",
+                  "spec": [
+                    {
+                      "name": "name",
+                      "type": "text",
+                      "label": "Name",
+                      "required": true
+                    },
+                    {
+                      "name": "value",
+                      "type": "text",
+                      "label": "Value"
+                    }
+                  ],
+                  "type": "collection",
+                  "label": "Field"
+                },
+                "type": "array",
+                "label": "Body content",
+                "required": true
+              },
+              {
+                "name": "paginationType",
+                "type": "select",
+                "label": "Pagination type",
+                "validate": {
+                  "enum": [
+                    "offsetBased",
+                    "pageBased",
+                    "urlBased",
+                    "tokenBased"
+                  ]
+                }
+              }
+            ],
+            "interface": [
+              {
+                "name": "data",
+                "type": "any",
+                "label": "Data"
+              },
+              {
+                "name": "statusCode",
+                "type": "number",
+                "label": "Status Code"
+              },
+              {
+                "name": "headers",
+                "spec": [
+                  {
+                    "name": "content-length",
+                    "type": "text",
+                    "label": "Content-Length"
+                  },
+                  {
+                    "name": "content-encoding",
+                    "type": "text",
+                    "label": "Content-Encoding"
+                  },
+                  {
+                    "name": "content-type",
+                    "type": "text",
+                    "label": "Content-Type"
+                  },
+                  {
+                    "name": "server",
+                    "type": "text",
+                    "label": "Server"
+                  },
+                  {
+                    "name": "cache-control",
+                    "type": "text",
+                    "label": "Cache-Control"
+                  },
+                  {
+                    "name": "set-cookie",
+                    "spec": {
+                      "type": "text"
+                    },
+                    "type": "array",
+                    "label": "Set-Cookie"
+                  }
+                ],
+                "type": "collection",
+                "label": "Headers"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": [
+        [
+          {
+            "id": 9,
+            "module": "placeholder:Placeholder",
+            "filter": null,
+            "metadata": {
+              "designer": {
+                "x": 120,
+                "y": 218
+              }
+            }
+          }
+        ]
+      ]
+    },
+    "zone": "us2.make.com",
+    "notes": []
+  }
+}

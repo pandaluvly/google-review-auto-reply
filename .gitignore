@@ -1,0 +1,10 @@
+# Never commit real secrets
+.clasp.json
+.env
+*.env
+config.local.js
+
+# OS / editor junk
+.DS_Store
+node_modules/
+*.log
