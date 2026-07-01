@@ -1,6 +1,6 @@
 # Google Maps Auto-Reply — Open Kit
 
-This is the full source kit from my blog post **"Google Maps Auto-Reply: How to Actually Build It (Step by Step)"** at [[https://khangpanda.substack.com/p/google-maps-auto-reply-how-to-actually)]).
+This is the full source kit from my blog post **"Google Maps Auto-Reply: How to Actually Build It (Step by Step)"** at https://khangpanda.substack.com/p/google-maps-auto-reply-how-to-actually.
 
 It auto-generates AI reply options for your Google Maps reviews, sends them to Telegram for one-tap approval, and publishes the chosen reply back to Google — with reliability checks so you can stop babysitting it.
 
