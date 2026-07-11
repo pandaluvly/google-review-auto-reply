@@ -17,6 +17,8 @@ function onOpen() {
     .addItem("🛠️ Set Up Sheet Layout", "autoCreateConfigSheet")
     .addSeparator()
     .addItem("⏰ Enable Auto-Run (every 5 min)", "setupAutoRunTrigger")
+    .addItem("♻️ Enable Daily Rescue (failed_permanently)", "setupDailyRescueTrigger")
+    .addItem("♻️ Run Daily Rescue now", "runDailyRescueFromMenu")
     .addItem("⏰ Enable Auto Report (Mon morning)", "setupWeeklyReportTrigger")
     .addItem("🏆 Enable Monthly Auto Report (1st)", "setupMonthlyTrigger")
     .addItem("📊 Weekly Report (send via Telegram)", "generateWeeklyReport")
@@ -2004,6 +2006,7 @@ function loadTriggerRegistryFromSheet() {
   
   const defaultTriggers = [
     { system: 'Review', functionName: 'processAIQueue', description: 'Auto-scan & process reviews (every 5 min)', status: 'ENABLED' },
+    { system: 'Review', functionName: 'dailyRescueFailedPermanently', description: 'Daily rescue of failed_permanently reviews (8am)', status: 'ENABLED' },
     { system: 'Review', functionName: 'generateWeeklyReport_Silent', description: 'Weekly auto-report (Monday morning)', status: 'ENABLED' },
     { system: 'Review', functionName: 'generateMonthlyReport_Silent', description: 'Monthly auto-report (1st of month)', status: 'ENABLED' }
   ];
